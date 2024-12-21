@@ -1,0 +1,12 @@
+<div class="container mt-4">
+  <h3>Planned Hours vs Actual Hours</h3>
+  <div class="form-group">
+    <label for="timeframe"><h3>Select Timeframe:</h3></label>
+    <select id="timeframe" class="form-control" [(ngModel)]="selectedTimeframe" (change)="onTimeframeChange()">
+      <option *ngFor="let timeframe of timeframes" [value]="timeframe">{{ timeframe }}</option>
+    </select>
+  </div>
+
+  <!-- D3 Chart Display -->
+  <div #chart class="mt-4"></div>
+</div>

@@ -1,0 +1,12 @@
+nav a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: darkblue;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: large;
+  }
+  nav a:hover{
+    color: rgb(1, 1, 81);
+    font-size:140%;
+  }

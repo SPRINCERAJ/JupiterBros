@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hi, {{ username }}</h1>
+  </div>
+  <div class="container mt-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3>Time Log Entries</h3>
+        <div class="row mb-3">
+          <h3>Filter Tables</h3>
+          <div class="col">
+            <input type="number" class="form-control form-control-sm" placeholder="Day" [(ngModel)]="filter.day" (input)="filterTimeLogs()" />
+          </div>
+          <br>
+          <div class="col">
+            <input type="number" class="form-control form-control-sm" placeholder="Month" [(ngModel)]="filter.month" (input)="filterTimeLogs()" />
+          </div>
+          <br>
+          <div class="col">
+            <input type="number" class="form-control form-control-sm" placeholder="Year" [(ngModel)]="filter.year" (input)="filterTimeLogs()" />
+          </div>
+          <br>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Project Name</th>
+              <th>Task</th>
+              <th>Hours to Spend</th>
+              <th>Task Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let log of filteredTimeLogs">
+              <td>{{ log.date | date: 'shortDate' }}</td>
+              <td>{{ log.projectName }}</td>
+              <td>{{ log.task }}</td>
+              <td>{{ log.hoursSpent }}</td> 
+              <td>{{ log.taskStatus }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3>Add New Time Log Entry</h3>
+        <form (ngSubmit)="addTimeLog()" #timeLogForm="ngForm">
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" [(ngModel)]="currentDate" name="date" required />
+          </div>
+          <div class="form-group">
+            <label for="projectId">Project Name</label>
+            <select class="form-control" [(ngModel)]="timeLog.projectId" name="projectId" (change)="onProjectChange(timeLog.projectId)" required>
+                <option value="" disabled selected>Select a project</option>
+                <option *ngFor="let project of projects" [value]="project._id">{{ project.projectName }}</option>
+            </select>
+        </div>
+          <div class="form-group">
+            <label for="task">Task</label>
+            <select class="form-control" [(ngModel)]="timeLog.task" name="task" required>
+                <option value="" disabled selected>Select a task</option>
+                <option *ngFor="let task of tasks" [value]="task.taskName">{{ task.taskName }}</option>
+            </select>
+        </div>
+          <div class="form-group">
+            <label for="hoursToSpend">Hours to be Spend</label>
+            <input type="number" class="form-control" [(ngModel)]="timeLog.hoursToSpend" name="hoursToSpend" placeholder="Hours to spend" required />
+          </div>
+          <div class="form-group">
+            <label for="taskStatus">Task Status</label>
+            <select class="form-control" [(ngModel)]="timeLog.taskStatus" name="taskStatus" required>
+              <option value="" disabled selected>Select Task Status</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+              <option value="Pending">Pending</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="addTimeLog()" [disabled]="isSubmitting">Add Time Log</button>
+        </form>
+      </div>
+    </div>
+  </div>
